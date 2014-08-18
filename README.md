@@ -1,6 +1,6 @@
 # XmlQuery
 
-A utility for querying XML data using XPath queries.
+A utility for querying XML data using XPath queries.  I wrote this utility primarily because I wanted a quick way to test XPath queries before using them in code I am working on.
 
 ### Install
 
