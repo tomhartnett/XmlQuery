@@ -180,11 +180,11 @@
             this.copiedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.copiedLabel.AutoSize = true;
             this.copiedLabel.ForeColor = System.Drawing.Color.Blue;
-            this.copiedLabel.Location = new System.Drawing.Point(655, 512);
+            this.copiedLabel.Location = new System.Drawing.Point(714, 512);
             this.copiedLabel.Name = "copiedLabel";
-            this.copiedLabel.Size = new System.Drawing.Size(99, 13);
+            this.copiedLabel.Size = new System.Drawing.Size(40, 13);
             this.copiedLabel.TabIndex = 10;
-            this.copiedLabel.Text = "Copied to Clipboard";
+            this.copiedLabel.Text = "Copied";
             this.copiedLabel.Visible = false;
             // 
             // fadeTimer
