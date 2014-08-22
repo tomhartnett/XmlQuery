@@ -4,7 +4,7 @@ A utility for querying XML data from an existing XML file using XPath queries.  
 
 ### Install
 
-This is a simple .NET WinForms application written in C#.  You can just download the source and build it with Visual Studio.  I initially created this solution in Visual Studio 2010, but I last built it in Visual Studio 2013.  I think you can probably build it with the Express edition of Visual Studio, but I have not tested this.  I'm pretty sure you could build it with msbuild and not use Visual Studio at all, but I have not tested this.
+This is a simple .NET WinForms application written in C#.  You can just download the source and build it with Visual Studio.  I initially created this solution in Visual Studio 2010, but I last built it in Visual Studio 2013.  I was able to download and build the solution with Visual Studio Express 2013 for Windows Desktop (the free version).  I'm pretty sure you could build it with msbuild and not use Visual Studio at all, but I have not tested this.
 
 ### Usage
 
