@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -215,14 +211,6 @@ namespace XmlQuery
             return node;
         }
 
-        private XmlElement CreateXmlElementFromTreeNode(TreeNode n)
-        {
-            // Each element displayed in the tree node was saved to
-            // the .Tag property.  Just get it back here and return it.
-            XmlElement e = n.Tag as XmlElement;
-            return e;
-        }
-
         private string GetFormattedXmlAsString(XmlDocument xmlDoc)
         {
             // The XmlDocument class doesn't contain any formatting in the
@@ -244,26 +232,6 @@ namespace XmlQuery
             {
                 sb.Append(RecursiveGetTreeNodeText(resultsTreeView.Nodes[i], 0));
             }
-            return sb.ToString();
-        }
-
-        private string RecursiveGetTreeNodeText(TreeNode node, int level)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < level; i++)
-            {
-                sb.Append('\t');
-            }
-
-            sb.Append(node.Text);
-            sb.Append(Environment.NewLine);
-
-            for (int i = 0; i < node.Nodes.Count; i++)
-            {
-                sb.Append(RecursiveGetTreeNodeText(node.Nodes[i], level + 1));
-            }
-
             return sb.ToString();
         }
 
@@ -338,6 +306,26 @@ namespace XmlQuery
             {
                 resultsTreeView.EndUpdate();
             }
+        }
+
+        private string RecursiveGetTreeNodeText(TreeNode node, int level)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < level; i++)
+            {
+                sb.Append('\t');
+            }
+
+            sb.Append(node.Text);
+            sb.Append(Environment.NewLine);
+
+            for (int i = 0; i < node.Nodes.Count; i++)
+            {
+                sb.Append(RecursiveGetTreeNodeText(node.Nodes[i], level + 1));
+            }
+
+            return sb.ToString();
         }
 
         #endregion
