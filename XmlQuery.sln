@@ -4,15 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlQuery", "XmlQuery\XmlQuery.csproj", "{96CDD244-7FDE-4CA1-AE99-E3630157FB9C}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://stltfsapp-prd2:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = XmlQuery\\XmlQuery.csproj
-		SccProjectName1 = XmlQuery
-		SccLocalPath1 = XmlQuery
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
