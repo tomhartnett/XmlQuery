@@ -23,8 +23,16 @@ namespace XmlQuery
 
         #region Event Handlers
 
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            // Clear all the results from the TreeView.
+            resultsTreeView.Nodes.Clear();
+            metaResultsLabel.Text = "Nodes found:";
+        }
+
         private void CopyButton_Click(object sender, EventArgs e)
         {
+            // Copy the results from the TreeView and save them to the Clipboard.
             string results = GetTreeNodesAsText();
             Clipboard.SetData(DataFormats.Text, (object)results);
 
@@ -34,6 +42,7 @@ namespace XmlQuery
 
         private void FadeTimer_Tick(object sender, EventArgs e)
         {
+            // Hide the 'copied' label and stop the timer.
             copiedLabel.Visible = false;
             fadeTimer.Enabled = false;
         }
@@ -59,6 +68,16 @@ namespace XmlQuery
             // cause the SplitterMoved event to fire, which will line
             // up the metaResultsLabel with the resultsTreeView.
             splitContainer.SplitterDistance = this.Width / 2 + 100;
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            // Ensure Clear button is lined up with TreeView & Copy Button.
+            if (WindowState != FormWindowState.Minimized)
+            {
+                clearButton.Left = splitContainer.Panel2.Left + 12;
+                clearButton.Top = copyButton.Top;
+            }
         }
 
         private void QueryButton_Click(object sender, EventArgs e)
@@ -93,7 +112,7 @@ namespace XmlQuery
                 }
 
                 using (StreamWriter sw = new StreamWriter(filename))
-                { 
+                {
 
                     if (filename.EndsWith(".xml", StringComparison.InvariantCultureIgnoreCase))
                     {
@@ -110,14 +129,11 @@ namespace XmlQuery
         {
             // Move the label that displays found nodes count.
             // Add arbitrary pixels to line it up nicely.
-            metaResultsLabel.Left = e.SplitX + 16;
-            clearButton.Left = e.SplitX + 16;
-        }
+            metaResultsLabel.Left = splitContainer.Panel2.Left + 10;
 
-        private void ClearButton_Click(object sender, EventArgs e)
-        {
-            resultsTreeView.Nodes.Clear();
-            metaResultsLabel.Text = "Nodes found:";
+            // Ensure Clear button is lined up with TreeView & Copy Button.
+            clearButton.Left = splitContainer.Panel2.Left + 12;
+            clearButton.Top = copyButton.Top;
         }
 
         #endregion
@@ -140,7 +156,7 @@ namespace XmlQuery
                     // Recursively check for children of this child node
                     AppendChildNodes(childTreeNode, childXmlElement);
                 }
-            }       
+            }
         }
 
         private void ClearResults()
@@ -310,7 +326,7 @@ namespace XmlQuery
                     {
                         continue;
                     }
-                    
+
                     resultsTreeView.Nodes.Add(treeNode);
                 }
             }
