@@ -13,3 +13,7 @@ This is a simple .NET WinForms application written in C#.  You can just download
 * Hit Enter or click Query to run the XPath query.
 * You will see the results in the right pane.
 * Use the Copy button to copy to clipboard or Save button to save to file.
+
+![Screenshot 1](screenshot1.png)
+
+![Screenshot 2](screenshot2.png)
