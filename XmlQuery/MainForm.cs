@@ -22,7 +22,7 @@ namespace XmlQuery
         private void ClearButton_Click(object sender, EventArgs e)
         {
             // Clear all the results from the TreeView.
-            resultsTreeView.Nodes.Clear();
+            ClearResults();
             metaResultsLabel.Text = "Nodes found:";
         }
 
@@ -113,9 +113,14 @@ namespace XmlQuery
                     if (filename.EndsWith(".xml", StringComparison.InvariantCultureIgnoreCase))
                     {
                         sw.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                        // If saving as XML file, you may need to add root-element in order for the
+                        // file to display in a browser as XML.
+                        sw.WriteLine("<results>");
                     }
 
                     sw.Write(results);
+                    sw.Write("</results>");
+
                     sw.Close();
                 }
             }
@@ -284,6 +289,11 @@ namespace XmlQuery
                         XmlElement element = node as XmlElement;
                         treeNode = CreateTreeNodeFromXmlElement(element);
                         AppendChildNodes(treeNode, element);
+                        
+                        if (treeNode.Nodes.Count > 0)
+                        {
+                            treeNode.LastNode.Text += string.Format("</{0}>", element.Name);
+                        }
                     }
 
                     else if (node is XmlAttribute)
