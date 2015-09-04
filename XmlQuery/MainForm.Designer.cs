@@ -116,6 +116,7 @@
             // saveResultsButton
             // 
             this.saveResultsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveResultsButton.Enabled = false;
             this.saveResultsButton.Location = new System.Drawing.Point(841, 507);
             this.saveResultsButton.Name = "saveResultsButton";
             this.saveResultsButton.Size = new System.Drawing.Size(75, 23);
@@ -127,6 +128,7 @@
             // copyButton
             // 
             this.copyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.copyButton.Enabled = false;
             this.copyButton.Location = new System.Drawing.Point(760, 507);
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(75, 23);

@@ -22,8 +22,7 @@ namespace XmlQuery
         private void ClearButton_Click(object sender, EventArgs e)
         {
             // Clear all the results from the TreeView.
-            resultsTreeView.Nodes.Clear();
-            metaResultsLabel.Text = "NODES FOUND:";
+            ClearResults();
         }
 
         private void CopyButton_Click(object sender, EventArgs e)
@@ -53,7 +52,7 @@ namespace XmlQuery
             if (diag.ShowDialog() == DialogResult.OK)
             {
                 inputFileTextBox.Text = diag.FileName;
-                resultsTreeView.Nodes.Clear();
+                ClearResults();
                 LoadXmlFromFile(inputFileTextBox.Text);
             }
         }
@@ -95,6 +94,7 @@ namespace XmlQuery
             // Give the user a save file dialog, let them choose a 
             // location/file.
             SaveFileDialog diag = new SaveFileDialog();
+            diag.FileName = "results.xml";
             diag.Filter = "All Files(*.*)|*.*";
 
             if (diag.ShowDialog() == DialogResult.OK)
@@ -309,7 +309,7 @@ namespace XmlQuery
                 metaResultsLabel.Text = string.Format("NODES FOUND: {0}", nodes.Count);
 
                 // Clear any previous results.
-                resultsTreeView.Nodes.Clear();
+                ClearResults();
 
                 // Populate the TreeView with results of the query.
                 resultsTreeView.BeginUpdate();
@@ -350,6 +350,17 @@ namespace XmlQuery
             {
                 resultsTreeView.EndUpdate();
             }
+
+            if (resultsTreeView.Nodes.Count > 0)
+            {
+                saveResultsButton.Enabled = true;
+                copyButton.Enabled = true;
+            }
+            else
+            {
+                saveResultsButton.Enabled = false;
+                copyButton.Enabled = false;
+            }
         }
 
         private string RecursiveGetTreeNodeText(TreeNode node, int level)
@@ -370,6 +381,14 @@ namespace XmlQuery
             }
 
             return sb.ToString();
+        }
+
+        private void ClearResults()
+        {
+            resultsTreeView.Nodes.Clear();
+            metaResultsLabel.Text = "NODES FOUND:";
+            copyButton.Enabled = false;
+            saveResultsButton.Enabled = false;
         }
 
         #endregion
