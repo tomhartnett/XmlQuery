@@ -39,10 +39,11 @@
             this.copyButton = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.sourceTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.copiedLabel = new System.Windows.Forms.Label();
             this.fadeTimer = new System.Windows.Forms.Timer(this.components);
             this.clearButton = new System.Windows.Forms.Button();
+            this.parseButton = new System.Windows.Forms.Button();
+            this.sourceXmlLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -108,9 +109,9 @@
             this.metaResultsLabel.AutoSize = true;
             this.metaResultsLabel.Location = new System.Drawing.Point(313, 70);
             this.metaResultsLabel.Name = "metaResultsLabel";
-            this.metaResultsLabel.Size = new System.Drawing.Size(71, 13);
+            this.metaResultsLabel.Size = new System.Drawing.Size(89, 13);
             this.metaResultsLabel.TabIndex = 5;
-            this.metaResultsLabel.Text = "Nodes found:";
+            this.metaResultsLabel.Text = "NODES FOUND:";
             // 
             // saveResultsButton
             // 
@@ -118,7 +119,7 @@
             this.saveResultsButton.Location = new System.Drawing.Point(841, 507);
             this.saveResultsButton.Name = "saveResultsButton";
             this.saveResultsButton.Size = new System.Drawing.Size(75, 23);
-            this.saveResultsButton.TabIndex = 7;
+            this.saveResultsButton.TabIndex = 9;
             this.saveResultsButton.Text = "Save";
             this.saveResultsButton.UseVisualStyleBackColor = true;
             this.saveResultsButton.Click += new System.EventHandler(this.SaveResultsButton_Click);
@@ -129,7 +130,7 @@
             this.copyButton.Location = new System.Drawing.Point(760, 507);
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(75, 23);
-            this.copyButton.TabIndex = 6;
+            this.copyButton.TabIndex = 8;
             this.copyButton.Text = "Copy";
             this.copyButton.UseVisualStyleBackColor = true;
             this.copyButton.Click += new System.EventHandler(this.CopyButton_Click);
@@ -165,15 +166,7 @@
             this.sourceTextBox.Size = new System.Drawing.Size(300, 415);
             this.sourceTextBox.TabIndex = 4;
             this.sourceTextBox.WordWrap = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 70);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Source XML";
+            this.sourceTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SourceTextBox_KeyDown);
             // 
             // copiedLabel
             // 
@@ -198,19 +191,39 @@
             this.clearButton.Location = new System.Drawing.Point(316, 507);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(75, 23);
-            this.clearButton.TabIndex = 11;
+            this.clearButton.TabIndex = 7;
             this.clearButton.Text = "Clear";
             this.clearButton.UseVisualStyleBackColor = true;
             this.clearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            // 
+            // parseButton
+            // 
+            this.parseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.parseButton.Location = new System.Drawing.Point(12, 507);
+            this.parseButton.Name = "parseButton";
+            this.parseButton.Size = new System.Drawing.Size(75, 23);
+            this.parseButton.TabIndex = 6;
+            this.parseButton.Text = "Parse";
+            this.parseButton.UseVisualStyleBackColor = true;
+            this.parseButton.Click += new System.EventHandler(this.ParseButton_Click);
+            // 
+            // sourceXmlLabel
+            // 
+            this.sourceXmlLabel.AutoSize = true;
+            this.sourceXmlLabel.Location = new System.Drawing.Point(12, 70);
+            this.sourceXmlLabel.Name = "sourceXmlLabel";
+            this.sourceXmlLabel.Size = new System.Drawing.Size(0, 13);
+            this.sourceXmlLabel.TabIndex = 11;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(928, 542);
+            this.Controls.Add(this.sourceXmlLabel);
+            this.Controls.Add(this.parseButton);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.copiedLabel);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.copyButton);
             this.Controls.Add(this.saveResultsButton);
@@ -245,10 +258,11 @@
         private System.Windows.Forms.Button copyButton;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TextBox sourceTextBox;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label copiedLabel;
         private System.Windows.Forms.Timer fadeTimer;
         private System.Windows.Forms.Button clearButton;
+        private System.Windows.Forms.Button parseButton;
+        private System.Windows.Forms.Label sourceXmlLabel;
     }
 }
 

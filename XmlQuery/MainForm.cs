@@ -22,8 +22,8 @@ namespace XmlQuery
         private void ClearButton_Click(object sender, EventArgs e)
         {
             // Clear all the results from the TreeView.
-            ClearResults();
-            metaResultsLabel.Text = "Nodes found:";
+            resultsTreeView.Nodes.Clear();
+            metaResultsLabel.Text = "NODES FOUND:";
         }
 
         private void CopyButton_Click(object sender, EventArgs e)
@@ -53,8 +53,8 @@ namespace XmlQuery
             if (diag.ShowDialog() == DialogResult.OK)
             {
                 inputFileTextBox.Text = diag.FileName;
-                ClearResults();
-                LoadXml();
+                resultsTreeView.Nodes.Clear();
+                LoadXmlFromFile(inputFileTextBox.Text);
             }
         }
 
@@ -137,6 +137,22 @@ namespace XmlQuery
             clearButton.Top = copyButton.Top;
         }
 
+        private void ParseButton_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(sourceTextBox.Text))
+                return;
+
+            LoadXmlFromTextBox(sourceTextBox.Text);
+        }
+
+        private void SourceTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                sourceTextBox.SelectAll();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -158,11 +174,6 @@ namespace XmlQuery
                     AppendChildNodes(childTreeNode, childXmlElement);
                 }
             }
-        }
-
-        private void ClearResults()
-        {
-            resultsTreeView.Nodes.Clear();
         }
 
         private TreeNode CreateTreeNodeFromXmlAttribute(XmlAttribute a)
@@ -240,18 +251,19 @@ namespace XmlQuery
             return sb.ToString();
         }
 
-        private void LoadXml()
+        private void LoadXmlFromFile(string filename)
         {
             try
             {
-                // Load Xml from input file
-                _xmlDoc.Load(inputFileTextBox.Text);
-                // Display the loaded Xml
+                // Load Xml from input file.
+                _xmlDoc.Load(filename);
+                // Display the loaded Xml.
                 string formattedXml = GetFormattedXmlAsString(_xmlDoc);
                 sourceTextBox.Text = formattedXml;
-                // Enabled some controls
+                // Enabled some controls.
                 queryTextBox.Enabled = true;
                 queryButton.Enabled = true;
+                sourceXmlLabel.Text = "LOADED FROM FILE";
             }
             catch (Exception ex)
             {
@@ -259,6 +271,28 @@ namespace XmlQuery
                 sourceTextBox.Text = string.Empty;
                 queryTextBox.Enabled = false;
                 queryButton.Enabled = false;
+                sourceXmlLabel.Text = string.Empty;
+            }
+        }
+
+        private void LoadXmlFromTextBox(string xml)
+        {
+            try
+            {
+                // Load xml from text in textbox.
+                _xmlDoc.LoadXml(xml);
+                queryTextBox.Enabled = true;
+                queryButton.Enabled = true;
+                // Clear input file textbox to reflect that xml was not loaded from file.
+                inputFileTextBox.Clear();
+                sourceXmlLabel.Text = "PARSED INPUT FROM UI";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                queryTextBox.Enabled = false;
+                queryButton.Enabled = false;
+                sourceXmlLabel.Text = string.Empty;
             }
         }
 
@@ -272,10 +306,10 @@ namespace XmlQuery
                 // Get the XPath query results.
                 XmlNodeList nodes = _xmlDoc.SelectNodes(queryTextBox.Text);
                 // Display number of nodes found.
-                metaResultsLabel.Text = string.Format("Nodes found: {0}", nodes.Count);
+                metaResultsLabel.Text = string.Format("NODES FOUND: {0}", nodes.Count);
 
                 // Clear any previous results.
-                ClearResults();
+                resultsTreeView.Nodes.Clear();
 
                 // Populate the TreeView with results of the query.
                 resultsTreeView.BeginUpdate();
