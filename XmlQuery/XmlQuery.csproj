@@ -81,6 +81,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="books.xml" />
     <Content Include="screenshot1.png" />
     <Content Include="screenshot2.png" />
     <Content Include="screenshot3.png" />
