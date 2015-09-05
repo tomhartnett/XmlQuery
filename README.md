@@ -9,7 +9,7 @@ This is a simple .NET WinForms application written in C#.  You can just download
 ### Usage
 
 * Click the Load button to browse to an existing XML file.
-* Or, paste (or type) XML into the textbox.
+* Or, paste (or type) XML into the textbox and click the Parse button.
 * Type a valid XPath query into the query textbox.
 * Hit Enter or click Query to run the XPath query.
 * You will see the results in the right pane.
