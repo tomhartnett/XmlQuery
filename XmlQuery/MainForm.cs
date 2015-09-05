@@ -176,6 +176,17 @@ namespace XmlQuery
             }
         }
 
+        private TreeNode CreateTreeNodeFromXmlText(XmlText t)
+        {
+            TreeNode node = new TreeNode();
+
+            node.Tag = t;
+
+            node.Text = t.Value;
+
+            return node;
+        }
+
         private TreeNode CreateTreeNodeFromXmlAttribute(XmlAttribute a)
         {
             // Create a new tree node to return
@@ -333,6 +344,10 @@ namespace XmlQuery
                     else if (node is XmlAttribute)
                     {
                         treeNode = CreateTreeNodeFromXmlAttribute(node as XmlAttribute);
+                    }
+                    else if (node is XmlText)
+                    {
+                        treeNode = CreateTreeNodeFromXmlText(node as XmlText);
                     }
                     else
                     {
