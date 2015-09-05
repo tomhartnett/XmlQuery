@@ -109,9 +109,9 @@
             this.metaResultsLabel.AutoSize = true;
             this.metaResultsLabel.Location = new System.Drawing.Point(313, 70);
             this.metaResultsLabel.Name = "metaResultsLabel";
-            this.metaResultsLabel.Size = new System.Drawing.Size(89, 13);
+            this.metaResultsLabel.Size = new System.Drawing.Size(98, 13);
             this.metaResultsLabel.TabIndex = 5;
-            this.metaResultsLabel.Text = "NODES FOUND:";
+            this.metaResultsLabel.Text = "NODES FOUND: 0";
             // 
             // saveResultsButton
             // 

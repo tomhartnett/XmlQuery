@@ -303,13 +303,13 @@ namespace XmlQuery
 
             try
             {
+                // Clear any previous results.
+                ClearResults();
+
                 // Get the XPath query results.
                 XmlNodeList nodes = _xmlDoc.SelectNodes(queryTextBox.Text);
                 // Display number of nodes found.
                 metaResultsLabel.Text = string.Format("NODES FOUND: {0}", nodes.Count);
-
-                // Clear any previous results.
-                ClearResults();
 
                 // Populate the TreeView with results of the query.
                 resultsTreeView.BeginUpdate();
@@ -386,7 +386,7 @@ namespace XmlQuery
         private void ClearResults()
         {
             resultsTreeView.Nodes.Clear();
-            metaResultsLabel.Text = "NODES FOUND:";
+            metaResultsLabel.Text = "NODES FOUND: 0";
             copyButton.Enabled = false;
             saveResultsButton.Enabled = false;
         }
