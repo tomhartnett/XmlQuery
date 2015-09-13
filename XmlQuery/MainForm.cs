@@ -119,7 +119,11 @@ namespace XmlQuery
                     }
 
                     sw.Write(results);
-                    sw.Write("</results>");
+
+                    if (filename.EndsWith(".xml", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        sw.Write("</results>");
+                    }
 
                     sw.Close();
                 }
