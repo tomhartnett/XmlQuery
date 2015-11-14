@@ -168,6 +168,7 @@
             this.sourceTextBox.Size = new System.Drawing.Size(300, 415);
             this.sourceTextBox.TabIndex = 4;
             this.sourceTextBox.WordWrap = false;
+            this.sourceTextBox.TextChanged += new System.EventHandler(this.SourceTextBox_TextChanged);
             this.sourceTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SourceTextBox_KeyDown);
             // 
             // copiedLabel

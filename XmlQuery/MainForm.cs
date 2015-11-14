@@ -157,6 +157,11 @@ namespace XmlQuery
             }
         }
 
+        private void SourceTextBox_TextChanged(object sender, EventArgs e)
+        {
+            sourceXmlLabel.Text = string.Empty;
+        }
+
         #endregion
 
         #region Methods
@@ -419,5 +424,6 @@ namespace XmlQuery
         private const string OUTPUT_RESULTS_ROOT_ELEMENT = "Results";
 
         #endregion
+
     }
 }
