@@ -475,6 +475,5 @@ namespace XmlQuery
         private const string OUTPUT_RESULTS_ROOT_ELEMENT = "Results";
 
         #endregion
-
     }
 }
