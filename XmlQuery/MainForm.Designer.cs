@@ -38,12 +38,12 @@
             this.saveResultsButton = new System.Windows.Forms.Button();
             this.copyButton = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.sourceTextBox = new System.Windows.Forms.TextBox();
             this.copiedLabel = new System.Windows.Forms.Label();
             this.fadeTimer = new System.Windows.Forms.Timer(this.components);
             this.clearButton = new System.Windows.Forms.Button();
             this.parseButton = new System.Windows.Forms.Button();
             this.sourceXmlLabel = new System.Windows.Forms.Label();
+            this.sourceTextBox = new XmlQuery.CustomTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -157,20 +157,6 @@
             this.splitContainer.TabIndex = 8;
             this.splitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.SplitContainer_SplitterMoved);
             // 
-            // sourceTextBox
-            // 
-            this.sourceTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sourceTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sourceTextBox.Location = new System.Drawing.Point(0, 0);
-            this.sourceTextBox.Multiline = true;
-            this.sourceTextBox.Name = "sourceTextBox";
-            this.sourceTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.sourceTextBox.Size = new System.Drawing.Size(300, 415);
-            this.sourceTextBox.TabIndex = 4;
-            this.sourceTextBox.WordWrap = false;
-            this.sourceTextBox.TextChanged += new System.EventHandler(this.SourceTextBox_TextChanged);
-            this.sourceTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SourceTextBox_KeyDown);
-            // 
             // copiedLabel
             // 
             this.copiedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -190,8 +176,8 @@
             // 
             // clearButton
             // 
-            this.clearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.clearButton.Location = new System.Drawing.Point(316, 507);
+            this.clearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.clearButton.Location = new System.Drawing.Point(93, 507);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(75, 23);
             this.clearButton.TabIndex = 7;
@@ -218,6 +204,18 @@
             this.sourceXmlLabel.Size = new System.Drawing.Size(0, 13);
             this.sourceXmlLabel.TabIndex = 11;
             // 
+            // sourceTextBox
+            // 
+            this.sourceTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sourceTextBox.Location = new System.Drawing.Point(0, 0);
+            this.sourceTextBox.Multiline = true;
+            this.sourceTextBox.Name = "sourceTextBox";
+            this.sourceTextBox.Size = new System.Drawing.Size(300, 415);
+            this.sourceTextBox.TabIndex = 0;
+            this.sourceTextBox.TextPasted += new XmlQuery.TextPastedHandler(this.SourceTextBox_TextPasted);
+            this.sourceTextBox.TextChanged += new System.EventHandler(this.SourceTextBox_TextChanged);
+            this.sourceTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SourceTextBox_KeyDown);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -238,7 +236,6 @@
             this.Name = "MainForm";
             this.Text = "XmlQuery";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel1.PerformLayout();
             this.splitContainer.Panel2.ResumeLayout(false);
@@ -260,12 +257,12 @@
         private System.Windows.Forms.Button saveResultsButton;
         private System.Windows.Forms.Button copyButton;
         private System.Windows.Forms.SplitContainer splitContainer;
-        private System.Windows.Forms.TextBox sourceTextBox;
         private System.Windows.Forms.Label copiedLabel;
         private System.Windows.Forms.Timer fadeTimer;
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Button parseButton;
         private System.Windows.Forms.Label sourceXmlLabel;
+        private CustomTextBox sourceTextBox;
     }
 }
 

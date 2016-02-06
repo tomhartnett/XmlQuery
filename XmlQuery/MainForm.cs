@@ -23,6 +23,8 @@ namespace XmlQuery
         {
             // Clear all the results from the TreeView.
             ClearResults();
+            // Clear the source XML.
+            this.sourceTextBox.Clear();
         }
 
         private void CopyButton_Click(object sender, EventArgs e)
@@ -63,16 +65,6 @@ namespace XmlQuery
             // cause the SplitterMoved event to fire, which will line
             // up the metaResultsLabel with the resultsTreeView.
             splitContainer.SplitterDistance = this.Width / 2 + 100;
-        }
-
-        private void MainForm_Resize(object sender, EventArgs e)
-        {
-            // Ensure Clear button is lined up with TreeView & Copy Button.
-            if (WindowState != FormWindowState.Minimized)
-            {
-                clearButton.Left = splitContainer.Panel2.Left + 12;
-                clearButton.Top = copyButton.Top;
-            }
         }
 
         private void QueryButton_Click(object sender, EventArgs e)
@@ -135,10 +127,6 @@ namespace XmlQuery
             // Move the label that displays found nodes count.
             // Add arbitrary pixels to line it up nicely.
             metaResultsLabel.Left = splitContainer.Panel2.Left + 10;
-
-            // Ensure Clear button is lined up with TreeView & Copy Button.
-            clearButton.Left = splitContainer.Panel2.Left + 12;
-            clearButton.Top = copyButton.Top;
         }
 
         private void ParseButton_Click(object sender, EventArgs e)
@@ -160,6 +148,50 @@ namespace XmlQuery
         private void SourceTextBox_TextChanged(object sender, EventArgs e)
         {
             sourceXmlLabel.Text = string.Empty;
+        }
+
+        private void SourceTextBox_TextPasted()
+        {
+            string text = this.sourceTextBox.Text;
+            XmlDocument doc = new XmlDocument();
+
+            try
+            {
+                // Load the XmlDocument with the XML.
+                doc.LoadXml(text);
+
+                // Create a stream and XmlTextWriter to format the XML.
+                // Read MemoryStream contents into a StreamReader.
+                using (MemoryStream ms = new MemoryStream())
+                using (XmlTextWriter writer = new XmlTextWriter(ms, Encoding.Unicode))
+                using (StreamReader sr = new StreamReader(ms))
+                {
+                    writer.Formatting = Formatting.Indented;
+
+                    // Write the XML into a formatting XmlTextWriter.
+                    doc.WriteContentTo(writer);
+                    writer.Flush();
+                    ms.Flush();
+
+                    // Have to rewind the MemoryStream in order to read
+                    // its contents.
+                    ms.Position = 0;
+
+                    // Extract the text from the StreamReader.
+                    string formattedXml = sr.ReadToEnd();
+
+                    // Display the formatted XML.
+                    this.sourceTextBox.Text = formattedXml;
+
+                    // Go ahead and parse the XML.
+                    LoadXmlFromTextBox(sourceTextBox.Text);
+                }
+            }
+            catch
+            {
+                // Failed to load XML; pasted text is not XML.
+                return;
+            }
         }
 
         #endregion
