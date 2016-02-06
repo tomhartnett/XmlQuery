@@ -210,6 +210,7 @@
             this.sourceTextBox.Location = new System.Drawing.Point(0, 0);
             this.sourceTextBox.Multiline = true;
             this.sourceTextBox.Name = "sourceTextBox";
+            this.sourceTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.sourceTextBox.Size = new System.Drawing.Size(300, 415);
             this.sourceTextBox.TabIndex = 0;
             this.sourceTextBox.TextPasted += new XmlQuery.TextPastedHandler(this.SourceTextBox_TextPasted);
