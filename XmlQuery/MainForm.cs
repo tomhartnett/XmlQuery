@@ -24,7 +24,7 @@ namespace XmlQuery
             // Clear all the results from the TreeView.
             ClearResults();
             // Clear the source XML.
-            this.sourceTextBox.Clear();
+            sourceTextBox.Clear();
         }
 
         private void CopyButton_Click(object sender, EventArgs e)
@@ -134,6 +134,9 @@ namespace XmlQuery
             if (string.IsNullOrEmpty(sourceTextBox.Text))
                 return;
 
+            // Attempt to format the input text.  Ignore return value.
+            FormatSourceXml();
+            // Ignoring return value from previous line.  This text may not parse, but error will be displayed.
             LoadXmlFromTextBox(sourceTextBox.Text);
         }
 
@@ -148,50 +151,20 @@ namespace XmlQuery
         private void SourceTextBox_TextChanged(object sender, EventArgs e)
         {
             sourceXmlLabel.Text = string.Empty;
+
+            if (string.IsNullOrWhiteSpace(sourceTextBox.Text))
+            {
+                queryButton.Enabled = false;
+            }
         }
 
         private void SourceTextBox_TextPasted()
         {
-            string text = this.sourceTextBox.Text;
-            XmlDocument doc = new XmlDocument();
-
-            try
-            {
-                // Load the XmlDocument with the XML.
-                doc.LoadXml(text);
-
-                // Create a stream and XmlTextWriter to format the XML.
-                // Read MemoryStream contents into a StreamReader.
-                using (MemoryStream ms = new MemoryStream())
-                using (XmlTextWriter writer = new XmlTextWriter(ms, Encoding.Unicode))
-                using (StreamReader sr = new StreamReader(ms))
-                {
-                    writer.Formatting = Formatting.Indented;
-
-                    // Write the XML into a formatting XmlTextWriter.
-                    doc.WriteContentTo(writer);
-                    writer.Flush();
-                    ms.Flush();
-
-                    // Have to rewind the MemoryStream in order to read
-                    // its contents.
-                    ms.Position = 0;
-
-                    // Extract the text from the StreamReader.
-                    string formattedXml = sr.ReadToEnd();
-
-                    // Display the formatted XML.
-                    this.sourceTextBox.Text = formattedXml;
-
-                    // Go ahead and parse the XML.
-                    LoadXmlFromTextBox(sourceTextBox.Text);
-                }
-            }
-            catch
-            {
-                // Failed to load XML; pasted text is not XML.
-                return;
-            }
+            // Attempt to format the pasted text.
+            bool formatted = FormatSourceXml();
+            // If it could be formatted, it is XML so load it.
+            if (formatted)
+                LoadXmlFromTextBox(sourceTextBox.Text);
         }
 
         #endregion
@@ -277,6 +250,52 @@ namespace XmlQuery
             node.Text = sb.ToString();
 
             return node;
+        }
+
+        private bool FormatSourceXml()
+        {
+            string xml = sourceTextBox.Text;
+            if (string.IsNullOrEmpty(xml))
+                return false;
+
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                // Load the XmlDocument with the XML.
+                doc.LoadXml(xml);
+
+                // Create a stream and XmlTextWriter to format the XML.
+                // Read MemoryStream contents into a StreamReader.
+                using (MemoryStream ms = new MemoryStream())
+                using (XmlTextWriter writer = new XmlTextWriter(ms, Encoding.Unicode))
+                using (StreamReader sr = new StreamReader(ms))
+                {
+                    writer.Formatting = Formatting.Indented;
+
+                    // Write the XML into a formatting XmlTextWriter.
+                    doc.WriteContentTo(writer);
+                    writer.Flush();
+                    ms.Flush();
+
+                    // Have to rewind the MemoryStream in order to read
+                    // its contents.
+                    ms.Position = 0;
+
+                    // Extract the text from the StreamReader.
+                    string formattedXml = sr.ReadToEnd();
+
+                    // Display the formatted XML.
+                    sourceTextBox.Text = formattedXml;
+
+                    // Return success.
+                    return true;
+                }
+            }
+            catch
+            {
+                // Failed to load XML; pasted text is not XML.
+                return false;
+            }
         }
 
         private string GetFormattedXmlAsString(XmlDocument xmlDoc)
